@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { useTemplateRef } from "vue";
 
-const toastEl = useTemplateRef('toast');
-const stackedToastEl = useTemplateRef('stackedToast');
+interface ToastComponent {
+  addToast: (message: string) => void;
+}
+
+const toastEl = useTemplateRef<ToastComponent>('toast');
+const stackedToastEl = useTemplateRef<ToastComponent>('stackedToast');
 
 function showToast1(): void {
   toastEl.value?.addToast('hello! this is toast message');
