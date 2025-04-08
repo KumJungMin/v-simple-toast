@@ -1,6 +1,6 @@
 <template>
   <transition-group name="toast-slide" tag="div">
-    <div v-for="toast in stackToasts" :key="toast.id" class="toast">
+    <div v-for="toast in stackToasts" :key="toast.id" class="toast" :class="props.toastClass" :style="props.toastStyle">
       {{ toast.message }}
     </div>
   </transition-group>
@@ -14,10 +14,9 @@ interface ToastMessage {
   message: string;
 }
 
-const props = defineProps<{ maxToastCount?: number }>();
+const props = defineProps<{ durationTime:number; maxToastCount?: number, toastClass?: string, toastStyle?: string }>();
 const maxToastCount = props.maxToastCount || 5;
 
-const DURATION_TIME = 3000;
 let messageId = 0;
 
 const stackToasts = ref<ToastMessage[]>([]);
@@ -31,7 +30,7 @@ function addToast(message: string): void {
   const toast: ToastMessage = { id: messageId++, message };
   stackToasts.value.push(toast);
 
-  const timerId = window.setTimeout(() => removeToast(toast.id), DURATION_TIME);
+  const timerId = window.setTimeout(() => removeToast(toast.id), props.durationTime);
   stackTimers.set(toast.id, timerId);
 }
 

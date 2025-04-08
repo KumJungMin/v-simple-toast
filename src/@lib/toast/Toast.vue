@@ -3,12 +3,19 @@
     <div class="toast-container">
       <SequentialToast 
         v-if="props.mode === MODE.SEQUENTIAL"
+        :interval-time="props.intervalTime ?? DEFAULT_INTERVAL_TIME"
+        :duration-time="props.durationTime ?? DEFAULT_DURATION_TIME"
+        :toast-class="props.toastClass"
+        :toast-style="props.toastStyle"
         ref="seqToastRef" 
       />
       <StackToast 
         v-else 
         ref="stackToastRef" 
+        :duration-time="props.durationTime ?? DEFAULT_DURATION_TIME"
         :max-toast-count="maxToastCount" 
+        :toast-class="props.toastClass"
+        :toast-style="props.toastStyle"
       />
     </div>
   </teleport>
@@ -22,16 +29,24 @@ import toastEventBus from '../helpers/eventBus';
 
 import symbol from './symbol';
 
+
+type ToastMode = typeof MODE[keyof typeof MODE];
+
 const MODE = {
   SEQUENTIAL: 'sequential',
   STACK: 'stack'
 } as const;
 
-type ToastMode = typeof MODE[keyof typeof MODE];
+const DEFAULT_INTERVAL_TIME = 200;
+const DEFAULT_DURATION_TIME = 3000;
 
 const props = defineProps<{
   mode?: ToastMode;
   maxToastCount?: number;
+  intervalTime?: number;
+  durationTime?: number;
+  toastClass?: string;
+  toastStyle?: string;
 }>();
 const mode = props.mode || MODE.SEQUENTIAL;
 const maxToastCount = props.maxToastCount || 5;

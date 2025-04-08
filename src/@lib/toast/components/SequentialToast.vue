@@ -1,6 +1,6 @@
 <template>
   <transition name="toast-slide" @after-leave="onAfterLeave">
-    <div v-if="activeToast" class="toast" :key="activeToast.id">
+    <div v-if="activeToast" class="toast" :key="activeToast.id" :class="props.toastClass" :style="props.toastStyle">
       {{ activeToast.message }}
     </div>
   </transition>
@@ -14,10 +14,15 @@ interface ToastMessage {
   message: string;
 }
 
-const INTERVAL_TIME = 1000;
-const DURATION_TIME = 3000;
+const props = defineProps<{
+  intervalTime: number;
+  durationTime: number;
+  toastClass?: string;
+  toastStyle?: string;
+}>();
 
 let messageId = 0;
+
 const queue = ref<ToastMessage[]>([]);
 const activeToast = ref<ToastMessage | null>(null);
 const timeout = ref<number | null>(null);
@@ -32,7 +37,9 @@ function addToast(message: string): void {
 function showNextToast(): void {
   if (queue.value.length > 0) {
     activeToast.value = queue.value.shift()!;
-    const duration = queue.value.length === 0 ? DURATION_TIME : INTERVAL_TIME;
+    /** if queue is empty, set duration to durationTime */
+    /** if queue is not empty, set duration to intervalTime */ 
+    const duration = queue.value.length === 0 ? props.durationTime : props.intervalTime;
     startTimer(duration);
   }
 }
