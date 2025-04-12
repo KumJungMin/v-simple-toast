@@ -80,7 +80,8 @@ Multiple toasts are shown at the same time.
 | Prop             | Type (Default)           | Description                                              |
 |------------------|---------------------------|----------------------------------------------------------|
 | `durationTime`   | `number (3000)` _(optional)_ | Time (in ms) each toast is visible                       |
-| `maxToastCount`  | `number (5)` _(optional)_    | Maximum number of toasts shown at once                  |
+| `maxCount`  | `number (5)` _(optional)_    | Maximum number of toasts shown at once                  |
+| `gap` | `number (10)` _(optional)_    | Gap (in pixels) between toasts in stack mode                 |
 | `toastClass`     | `string` _(optional)_        | Custom CSS class for toast                              |
 | `toastStyle`     | `string` _(optional)_        | Inline styles for toast                                 |
 
@@ -88,7 +89,7 @@ Multiple toasts are shown at the same time.
 
 ```vue
 <template>
-  <Toast mode="stack" ref="stackedToast" :maxToastCount="3" />
+  <Toast mode="stack" ref="stackedToast" :max-count="3" />
   <button @click="showToast3">open Toast3</button>
   <button @click="showToast4">open Toast4</button>
 </template>
