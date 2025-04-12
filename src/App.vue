@@ -12,12 +12,6 @@ function showToast1(): void {
   toastEl.value?.addToast('hello! this is toast message');
 }
 function showToast2(): void {
-  toastEl.value?.addToast('hello! this is toast message2');
-}
-function showToast3(): void {
-  stackedToastEl.value?.addToast('hello! this is toast message');
-}
-function showToast4(): void {
   stackedToastEl.value?.addToast('hello! this is toast message');
 }
 </script>
@@ -88,8 +82,7 @@ function showToast4(): void {
       </code>
     </div>
     <br />
-    <button @click="showToast1">open Toast1</button>
-    <button @click="showToast2">open Toast2</button>
+    <button @click="showToast1">open Single Toast</button>
     <br /> <br />
     <hr />
     <br />
@@ -116,6 +109,11 @@ function showToast4(): void {
           <td><code>maxToastCount</code></td>
           <td><code>number (5)</code> (optional)</td>
           <td>Maximum number of toasts shown at once (stack mode)</td>
+        </tr>
+        <tr>
+          <td><code>gap</code></td>
+          <td><code>number (10)</code> (optional)</td>
+          <td>Gap (in pixels) between toasts in stack mode</td>
         </tr>
         <tr>
           <td><code>toastClass</code></td>
@@ -149,8 +147,7 @@ function showToast4(): void {
       </code>
     </div>
     <br />
-    <button @click="showToast3">open Toast3</button>
-    <button @click="showToast4">open Toast4</button>
+    <button @click="showToast2">open Stack Toast(maxCount: 5)</button>
   </div>
 </template>
 

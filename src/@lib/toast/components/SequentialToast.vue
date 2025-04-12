@@ -72,11 +72,12 @@ defineExpose({
 
 <style scoped>
 .toast {
-  background: #333;
+  width: fit-content;
+  margin: 0 auto;
+  background-color: #333;
   color: #fff;
-  padding: 10px 20px;
+  padding: 10px 16px;
   border-radius: 4px;
-  margin: 5px 0;
 }
 
 .toast-slide-enter-active,
